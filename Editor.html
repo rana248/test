@@ -1,0 +1,208 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-MXPRDV');</script>
+<!-- End Google Tag Manager -->
+
+    <title>
+	Editor
+</title><link rel="shortcut icon" type="image/x-icon" href="/file/app/5/icon/webself.ico" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro|Kristi|Patrick+Hand|Crafty+Girls|Just+Another+Hand|Lato|Arvo|Crushed|Michroma|Lily+Script+One|Corben|Glass+Antiqua|Josefin+Sans|Lobster|Anton|Calligraffitti|Asap|Droid+Serif|Goudy+Bookletter+1911|Molengo|Signika|Dancing+Script|Architects+Daughter|Amaranth|Open+Sans:300|Coda|Open+Sans+Condensed:300|Merriweather|Fjalla+One|Chewy|Crimson+Text|Indie+Flower|Comfortaa|Yanone+Kaffeesatz|Homemade+Apple|Cardo|Orbitron|Cutive|Gruppo|Raleway|Roboto+Condensed|Allan|Mountains+of+Christmas|Kaushan+Script|Roboto+Slab|Roboto|Amiri|Lateef|Scheherazade|Sacramento|Meddon|Montserrat|Playfair+Display|Poppins|Work+Sans|Droid+Sans|Pathway+Gothic+One|DM+Sans|Manrope|Lexend+Deca|PT+Serif|Frank+Ruhl+Libre|Libre+Caslon+Text|Dela+Gothic+One|Righteous|Parisienne|Anek+Gurmukhi|Inter|Nunito+Sans|Prompt|Epilogue|Libre+Baskerville|Hahmlet|Fraunces|Elsie+Swash+Caps|Alfa+Slab+One|Berkshire+Swash|Syne|Libre+Franklin|Heebo|Kanit|Fira+Sans|Barlow+Condensed|Archivo|Literata|Rasa|Newsreader|Anonymous+Pro|Sansita+Swashed|Bebas+Neue|Great+Vibes|Petit+Formal+Script|Style+Script" rel="stylesheet" type="text/css" />
+<link href="/Ext/Resources?a=TcwWBHwkiYz8dmW07DimdA,,&r=2Q_Ij654e5CMMf5CKqD8MzYz5pWDjNmd4-1mvsiA2-Q," rel="stylesheet" type="text/css" />
+<link href="/Ext/Resources?a=TcwWBHwkiYz8dmW07DimdA,,&r=2Q_Ij654e5CMMf5CKqD8M0mNRTXMwnrw-ppLDsPspSmwYtY5cpa7RfOAS1Jjy5Tt" rel="stylesheet" type="text/css"/>
+
+    
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.1/bootstrap-slider.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.1/css/bootstrap-slider.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script type="text/javascript" src="/Js/velocity.min.js"></script>
+    
+<script type="text/javascript" src="/Ext/Resources?a=TcwWBHwkiYz8dmW07DimdA,,&r=KjG3B6Yx793hYWA86_S4Gby4dPd9TasLg5lTB7uVNkE,"></script>
+<script type="text/javascript">window.WhitelabelId = 1;</script><script type="text/javascript">var wsData = {userlanguage: "Fr", createloadingtxt:"Veuillez patienter quelques secondes pendant que nous construisons votre site", loadingtxt:"Chargement de l'éditeur..."};</script>
+
+    <script type="text/javascript">
+
+        // BACK BUTTON
+        window.onbeforeunload = function ()
+        {
+            return "";
+        };
+
+        function BindCookieWebSite(Page)
+        {
+            var xb = $("[name=BrowserID]").text();
+            window.document.cookie = xb + "=xuserlanguage=" + wsData.userlanguage + "&xpage=" + ((Page) ? Page : "");
+        }
+
+        function RefreshFrame(url, isMobile, scroller, force, callback)
+        {
+            var Page = url.replace("?", "").replace("page=", "");
+            BindCookieWebSite(Page);
+
+            $("#FrameEditor")[0].contentWindow.WS.Editor.Historic.Instance.ResetHistoric();
+
+            $("#FrameEditor")[0].contentWindow.LoadPage(Page, isMobile, scroller, force, callback);
+        }
+
+        function CreateLoading(text, withProgress)
+        {
+            var element = $(document.createElement("div")).addClass("wsLoading");
+            element.append('<img src="/file/app/2/' + WhitelabelId + '/logo/logo.' + (WhitelabelId == 1 ? 'svg?color1=r255g255b255' : 'png') + '" style=\"width: 334px;\" />');
+            element.append('<div>' + text + '</div>');
+            if (withProgress === true) element.append('<div class=\"wsProgress\"><div></div></div>');
+            else element.append('<div><div class="wsLoadingSpinner">' + text + '</div></div>');
+            $("body").append(element);
+
+            return element;
+        }
+
+        function CheckAction(loading, actionId, indexId)
+        {
+            AjaxManager.Get("/Editor/Website/CreationState", { actionId: actionId, indexId: indexId }, function (data)
+            {
+                if (data.Completed)
+                {
+                    if (data.Success)
+                    {
+                        var Params = GetQueryString(window.location);
+                        if (!Params.return_to)
+                        {
+                            history.replaceState(null, null, "?id=" + Params.id);
+                            LoadEditor();
+                            loading.remove();
+                        }
+
+                        else
+                        {
+                            window.onbeforeunload = null;
+                            location.assign(decodeURIComponent(Params.return_to));
+                        }
+                    }
+                }
+
+                else
+                {
+                    loading.find(".wsProgress > div").css("width", Math.round(data.Progress) + "%");
+                    window.setTimeout(function () { CheckAction(loading, actionId, indexId); }, 500);
+                }
+            });
+        }
+
+        var currentLoading = null;
+        function LoadEditor()
+        {
+            var page = null;
+            var cookies = window.document.cookie;
+            if (cookies)
+            {
+                var xb = $("[name=BrowserID]").text();
+                cookies = cookies.getKeyValue(";");
+                if (cookies[xb]) page = cookies[xb].getKeyValue("&").xpage;
+            }
+
+            BindCookieWebSite(page);
+
+            var Pagequery = "";
+            if (page && typeof parseInt(page) === "number") Pagequery = "&page=" + page;
+            var Params = GetQueryString(window.location);
+            currentLoading = CreateLoading(wsData.loadingtxt);
+            $("#FrameEditor").attr("src", "Editor.aspx?id=" + Params.id + (Params.OpenManagement ? "&openmanagement=" + Params.OpenManagement : "") + (Params.idpost ? "&postid=" + Params.idpost : "") + (Params.postlanguage ? "&postlanguage=" + Params.postlanguage : "") + (Params.webstoretype ? "&webstoretype=" + Params.webstoretype : "") + (Params.blogtype ? "&blogtype=" + Params.blogtype : "") + (Params.bloglang ? "&bloglang=" + Params.bloglang : "") + ((Params.webstorelang ? "&webstorelang=" + Params.webstorelang : "") + Pagequery));
+        }
+
+        function RemoveLoading()
+        {
+            if (currentLoading != null)
+            {
+                currentLoading.remove();
+                currentLoading = null;
+            }
+        }
+
+        // DOM READY
+        $(function ()
+        {
+            var Params = GetQueryString(window.location);
+            if (Params.id)
+            {
+                AjaxManager.SetKey(Params.id);
+                if (Params.aid && Params.iid)
+                {
+                    var loading = CreateLoading(wsData.createloadingtxt, true);
+                    CheckAction(loading, Params.aid, Params.iid);
+                }
+
+                else
+                {
+                    LoadEditor();
+                }
+            }
+        });
+    </script>
+    
+<script type="text/javascript" src="/Ext/Resources?a=5AImKiaXQzADMntIV4ay8tepI9JfJHEf7-wP7X8a3hI,&r=5AImKiaXQzADMntIV4ay8s-yWJoAwMNLenG4fmnqLy4QsFjN9jTuy2rKYAcC4f54"></script><script type="text/javascript" src="/Ext/Resources?a=5AImKiaXQzADMntIV4ay8tepI9JfJHEf7-wP7X8a3hI,&r=5AImKiaXQzADMntIV4ay8odeokVm2TzhsI9dJFxHKIihLSrQW1nhK8_YuZTWFwql"></script><script type="text/javascript" src="/Ext/Resources?a=5AImKiaXQzADMntIV4ay8tepI9JfJHEf7-wP7X8a3hI,&r=5AImKiaXQzADMntIV4ay8mtx2j7DOE5IUEyzWgVWBNns6nGIsZCgGw2sACAhGJFa"></script><script type="text/javascript" src="/Ext/Resources?a=5AImKiaXQzADMntIV4ay8tepI9JfJHEf7-wP7X8a3hI,&r=5AImKiaXQzADMntIV4ay8g2gQyYnvkPTy1qMKIwnd5THro3B2WfbZsnMmYrJR-s2"></script><script type="text/javascript" src="/Ext/Resources?a=CLe5H_Yo_xKcOYsdCuvobpUD40BC_RZO0YULMWRlWYQ,&r=CLe5H_Yo_xKcOYsdCuvobglk6MZmrreMi8Zah9gODB0D0HuXRtIOM4-z9eAbOlww"></script><link href="/Ext/Resources?a=CLe5H_Yo_xKcOYsdCuvobpUD40BC_RZO0YULMWRlWYQ,&r=CLe5H_Yo_xKcOYsdCuvobhwm01YSoQ5DkULUjQTfeTr84GNeDGX3SlbVT6A0Yo7a" rel="stylesheet" type="text/css" /></head>
+<body>
+
+    
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=>"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="alert-overlay" style="display:none">
+        <a href="javascript:void(0)" id="close-button" onclick="document.getElementById('alert-overlay').style.display = 'none';">&times;</a>
+        <div id="old-browser">
+            <div id="alert-top">            
+                <h1 id="alert-title">Veuillez mettre à jour votre navigateur</h1>
+                <p id="alert-subtitle">Il semble que vous utilisez un navigateur vieux ou non pris en charge. Veuillez le mettre à jour vers une version récente de l'un des navigateurs suivants pour continuer</p>
+            </div>
+            <div id="new-browsers-links">
+                <a class="new-browser" href="http://microsoft.com/edge/">
+                    <img class="browser-image" src="/file/app/7/browsers-icon/edge.svg" />
+                    <p class="browser-text">Edge</p>
+                </a>
+                <a class="new-browser" href="http://google.com/chrome/">
+                    <img class="browser-image" src="/file/app/7/browsers-icon/chrome.svg" />
+                    <p class="browser-text">Chrome</p>
+                </a>
+                <a class="new-browser" href="http://mozilla.org/firefox/">
+                    <img class="browser-image" src="/file/app/7/browsers-icon/firefox.svg" />
+                    <p class="browser-text">Firefox</p>
+                </a>
+                <a class="new-browser" href="http://www.opera.com/">
+                    <img class="browser-image" src="/file/app/7/browsers-icon/opera.svg" />
+                    <p class="browser-text">Opera</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        if (window.UnsupportedBrowserCheck) {
+            UnsupportedBrowserCheck('Editor');
+        } else {
+            if (!window.WS) window.WS = {};
+            window.WS.ProjectName = "Editor";
+        }
+    </script>
+
+     
+
+    <div id="ControlContainer"></div>
+    <span id="BrowserKey" name="BrowserID" style="display: none;">xb-2252269</span>
+    
+
+    <iframe id="FrameEditor"></iframe>
+</body>
+</html>
